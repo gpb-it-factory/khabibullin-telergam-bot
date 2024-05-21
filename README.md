@@ -49,7 +49,31 @@
 <details>
     <summary><b>Как запустить проект?</b></summary>
 
-1. Раздел в разработке
+1. Запуск бота в телеграме требует наличия токена и имени.
+2. Имя и токен получаются у офицального бота в Telegram ссылка: [@BotFather](https://t.me/BotFather)
+3. Пример имени: ```AdminForDusBot```
+4. Пример токена: ```659600****:AAE5mrg6tuLtbooygqou9zooLN_74q****```
+5. Скачать проект по ссылке с ```github.com``` в виде zip архива и разахивировать папку ```khabibullin-frontend-bot```  
+6. Или склонировать проект командой в терминале/командной строке
+```bash
+git clone git@github.com:gpb-it-factory/khabibullin-telergam-bot.git
+```
+7. Перейти в папку ```khabibullin-frontend-bot```
+8. В папке набрать команду в терминале/командной строке
+```bash
+./gradlew clean && ./gradlew assemble
+```
+9. После этого набрать команду в терминале/командной строке команду из блока кода ниже,  подставив вместо ```<YOUR_BOT_NAME>``` имя бота,
+а вместо ```<YOUR_BOT_TOKEN>``` ваш токен бота
+```bash
+java -jar khabibullin-frontend-bot-0.5.jar --bot.name=<YOUR_BOT_NAME> --bot.token=<YOUR_BOT_TOKEN>
+```
+10. Пример команды для запуска:
+```bash
+java -jar build/libs/khabibullin-frontend-bot-0.5.jar --bot.name=AdminForDusBot --bot.token=659600****:AAE5mrg****tbooygqou9zooLN_74q6wwAc
+```
+
+
 </details>
 
 <details>
