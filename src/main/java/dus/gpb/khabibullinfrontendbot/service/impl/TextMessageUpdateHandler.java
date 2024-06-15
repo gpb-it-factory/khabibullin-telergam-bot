@@ -1,26 +1,33 @@
 package dus.gpb.khabibullinfrontendbot.service.impl;
 
-import dus.gpb.khabibullinfrontendbot.service.CommandHandler;
+import dus.gpb.khabibullinfrontendbot.service.command.Command;
 import dus.gpb.khabibullinfrontendbot.service.UpdateHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static dus.gpb.khabibullinfrontendbot.service.command.impl.DefaultCommand.DEFAULT_COMMAND_VALUE;
+
 @Service
+@Slf4j
 public class TextMessageUpdateHandler implements UpdateHandler {
 
-    private final String START_COMMAND = "/start";
+    private final Map<String, Command> commands = new HashMap<>();
 
-    private final String PONG_COMMAND = "/ping";
-
-    private final String TEST_COMMAND = "/test";
-
-    private final CommandHandler textCommandHandler;
-
-    @Autowired
-    public TextMessageUpdateHandler(CommandHandler textCommandHandler) {
-        this.textCommandHandler = textCommandHandler;
+    public TextMessageUpdateHandler(List<Command> botCommands) {
+        botCommands.forEach(command -> {
+            if (this.commands.containsKey(command.getCommandValue())) {
+                log.error("Duplicate command name: {}, classes: {}, {}",
+                        command.getCommandValue(), this.commands.get(command.getCommandValue()), command);
+                throw new IllegalStateException("Duplicate command name");
+            }
+            this.commands.put(command.getCommandValue(), command);
+        });
     }
 
     @Override
@@ -28,18 +35,26 @@ public class TextMessageUpdateHandler implements UpdateHandler {
         if (update.getMessage() == null) {
             return;
         }
+
         final Message message = update.getMessage();
-        handleCommand(message);
+
+        if (message.hasText()) {
+            handleCommand(message);
+        }
     }
 
     @Override
     public void handleCommand(Message message) {
-        final String text = message.getText();
-        switch (text) {
-            case START_COMMAND -> textCommandHandler.handleStartCommand(message);
-            case PONG_COMMAND -> textCommandHandler.handlePongCommand(message);
-            case TEST_COMMAND -> textCommandHandler.handleTestCommand(message);
-            default -> textCommandHandler.handleDefaultCommand(message);
+        String text = message.getText();
+        log.info("Received message with text: {}", text);
+        if (isCommand(text)) {
+            commands.getOrDefault(text.split(" ")[0], commands.get(DEFAULT_COMMAND_VALUE)).handleCommand(message);
+        } else {
+            commands.get(DEFAULT_COMMAND_VALUE).handleCommand(message);
         }
+    }
+
+    private boolean isCommand(String text) {
+        return text.startsWith("/");
     }
 }
