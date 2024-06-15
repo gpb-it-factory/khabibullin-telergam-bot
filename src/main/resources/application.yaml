@@ -12,7 +12,10 @@ service:
   middle:
     url: http://localhost:8082
 
-bot:
- name: ${BOT_NAME}
- token: ${BOT_TOKEN}
+#bot:
+# name: ${BOT_NAME}
+# token: ${BOT_TOKEN}
 
+bot:
+  name: AdminForDusBot
+  token: 6596002126:AAE5mrg6tuLtbooygqou9zooLN_74q6wwAc

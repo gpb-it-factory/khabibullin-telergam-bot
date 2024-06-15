@@ -30,7 +30,7 @@ public class RegisterCommand implements Command {
 
     private static final String LOG_PREFIX = "[Register command]";
 
-    public static final String REGISTER = "/register";
+    public static final String REGISTER_COMMAND_VALUE = "/register";
 
     @Autowired
     public RegisterCommand(MessageSender textMessageSender,
@@ -43,12 +43,12 @@ public class RegisterCommand implements Command {
     public void handleCommand(Message message) {
         log.info("{} Получено сообщение, которое начинается с '{}' ",
                 LOG_PREFIX,
-                REGISTER);
+                REGISTER_COMMAND_VALUE);
 
         if (validateCommand(message.getText())) {
             log.info("{} Получена команда '{}' ",
                     LOG_PREFIX,
-                    REGISTER);
+                    REGISTER_COMMAND_VALUE);
 
             long chatId = message.getChatId();
             User userToRegister = message.getFrom();
@@ -63,25 +63,25 @@ public class RegisterCommand implements Command {
                     message.getChatId(),
                     String.format(WRONG_COMMAND_ANSWER,
                             message.getText().split(" ")[0],
-                            REGISTER))
+                            REGISTER_COMMAND_VALUE))
             );
 
 
             log.info(getLogMessage(message.getChatId(),
                     String.format(WRONG_COMMAND_ANSWER,
                             message.getText().split(" ")[0],
-                            REGISTER))
+                            REGISTER_COMMAND_VALUE))
             );
         }
     }
 
     @Override
     public String getCommandValue() {
-        return REGISTER;
+        return REGISTER_COMMAND_VALUE;
     }
 
     private boolean validateCommand(String text) {
-        return text.split(" ").length == 1 && text.split(" ")[0].equals(REGISTER);
+        return text.split(" ").length == 1 && text.split(" ")[0].equals(REGISTER_COMMAND_VALUE);
     }
 
     private void executeSendMessageDependsOnResponse(long chatId, User userToRegister, ResponseEntity<Object> middleResponse) {
