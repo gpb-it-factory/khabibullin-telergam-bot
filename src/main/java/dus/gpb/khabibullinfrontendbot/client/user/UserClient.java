@@ -12,15 +12,14 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 @Service
 public class UserClient extends BaseClient {
 
-    public static final String API_PREFIX = "/middle/v2/users";
+    public static final String USERS_API_PREFIX = "/middle/v2/users";
 
     protected UserClient(@Value("${service.middle.url}") String middleServiceUrl,
                          RestTemplateBuilder builder) {
-        super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(middleServiceUrl + API_PREFIX))
+        super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(middleServiceUrl + USERS_API_PREFIX))
                 .requestFactory(HttpComponentsClientHttpRequestFactory.class)
                 .build());
     }
-
 
     public ResponseEntity<Object> register(CreateUserRequest createUserRequest) {
         return post("", createUserRequest);

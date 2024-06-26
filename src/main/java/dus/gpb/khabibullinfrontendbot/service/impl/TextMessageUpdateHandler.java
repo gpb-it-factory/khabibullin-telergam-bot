@@ -23,7 +23,7 @@ public class TextMessageUpdateHandler implements UpdateHandler {
             if (this.commands.containsKey(command.getCommandEnum().getValue())) {
                 log.error("Duplicate command name: {}, classes: {}, {}",
                         command.getCommandEnum(), this.commands.get(command.getCommandEnum().getValue()), command);
-                throw new IllegalStateException("Duplicate command name");
+                throw new IllegalStateException("Duplicate command name " + command.getCommandEnum().getValue());
             }
             this.commands.put(command.getCommandEnum().getValue(), command);
         });

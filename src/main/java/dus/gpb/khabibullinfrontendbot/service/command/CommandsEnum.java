@@ -5,8 +5,8 @@ public enum CommandsEnum {
     START("/start"),
     PING("/ping"),
     REGISTER("/register"),
-    CREATE_ACCOUNT("/create_account"),
-    CURRENT_BALANCE("/current_balance"),
+    CREATE_ACCOUNT("/createaccount"),
+    CURRENT_BALANCE("/currentbalance"),
     TRANSFER("/transfer"),
     WRONG_COMMAND("/wrong_command_format"),
     NOT_IMPLEMENTED("/not_implemented_command");
