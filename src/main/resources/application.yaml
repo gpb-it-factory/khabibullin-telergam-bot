@@ -1,0 +1,18 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: khabibullin-frontend-bot
+
+
+server:
+  port: 8080
+
+service:
+  middle:
+    url: http://localhost:8082
+
+bot:
+ name: ${BOT_NAME}
+ token: ${BOT_TOKEN}
+
