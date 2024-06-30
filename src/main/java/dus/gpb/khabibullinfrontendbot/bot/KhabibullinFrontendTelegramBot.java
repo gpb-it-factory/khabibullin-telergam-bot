@@ -1,6 +1,8 @@
 package dus.gpb.khabibullinfrontendbot.bot;
 
+import dus.gpb.khabibullinfrontendbot.service.UpdateHandler;
 import dus.gpb.khabibullinfrontendbot.service.impl.TextMessageUpdateHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Slf4j
 public class KhabibullinFrontendTelegramBot implements SpringLongPollingBot, LongPollingSingleThreadUpdateConsumer {
 
-    private final TextMessageUpdateHandler textMessageUpdateHandler;
+    private final UpdateHandler textMessageUpdateHandler;
 
     private final String name;
 
